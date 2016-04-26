@@ -6,21 +6,24 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Pranav&#39;s coding adventures">
-    <title>Binary Tales - Pranav&#39;s coding adventures</title>
+    <title>Illusion of multi-tasking on a single processor core (WIP) - Pranav&#39;s coding adventures</title>
     <meta name="author" content="Pranav">
     
     
     
-    <meta name="description" content="So, you would like to learn more about what binary numbers are, and why we need them. There is a reason why the binary system was chosen for building electrical systems and powering basically any syst">
+    <meta name="description" content="Today, I shall attempt to shed some light on why computers seem to do so many things at once, and the illusion of parallel processing on a single core.
+It is easy to see examples of this in everyday l">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Binary Tales">
-<meta property="og:url" content="http://yoursite.com/2013/11/06/2013-12-31-binary-tales/index.html">
+<meta property="og:title" content="Illusion of multi-tasking on a single processor core (WIP)">
+<meta property="og:url" content="http://yoursite.com/2016/01/20/fair-scheduling/index.html">
 <meta property="og:site_name" content="Pranav's coding adventures">
-<meta property="og:description" content="So, you would like to learn more about what binary numbers are, and why we need them. There is a reason why the binary system was chosen for building electrical systems and powering basically any syst">
-<meta property="og:updated_time" content="2016-04-25T03:09:07.000Z">
+<meta property="og:description" content="Today, I shall attempt to shed some light on why computers seem to do so many things at once, and the illusion of parallel processing on a single core.
+It is easy to see examples of this in everyday l">
+<meta property="og:updated_time" content="2016-04-26T05:55:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Binary Tales">
-<meta name="twitter:description" content="So, you would like to learn more about what binary numbers are, and why we need them. There is a reason why the binary system was chosen for building electrical systems and powering basically any syst">
+<meta name="twitter:title" content="Illusion of multi-tasking on a single processor core (WIP)">
+<meta name="twitter:description" content="Today, I shall attempt to shed some light on why computers seem to do so many things at once, and the illusion of parallel processing on a single core.
+It is easy to see examples of this in everyday l">
     
     
         
@@ -151,13 +154,13 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            Binary Tales
+            Illusion of multi-tasking on a single processor core (WIP)
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Wed Nov 06 2013 06:40:12 GMT-0800">
+    <time itemprop="datePublished" content="Wed Jan 20 2016 06:40:12 GMT-0800">
 	
-		    Nov 06, 2013
+		    Jan 20, 2016
     	
     </time>
     
@@ -166,14 +169,12 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>So, you would like to learn more about what binary numbers are, and why we need them. There is a reason why the binary system was chosen for building electrical systems and powering basically any system dependant on logic.</p>
-<p>Let us dive into numbers…</p>
-<p>Look at your bank statement. Or your bills, or even your paycheques. You might have noticed that the numbers are in the decimal format. The word ‘decimal’ is derived from Greek, loosely translated into ‘numbers that use ten as their base’. Why do we use this, over other number systems in our everyday activities, and our monetary system? One speculation is that it is because we have ten fingers on our hands, and coincidentally, ten toes on our feet. We can “understand” ten-based number systems easily, as we realize that we need another hand to count #11.</p>
-<p>In the world of electricity, circuits, and machines powered by logic, information is represented by bits, the smallest unit of data, which in a crude approximation, is just a matter of looking at the electrical voltage and comparing it to a voltage logic level set by a human. </p>
-<blockquote>
-<p>If our voltage is higher than the logic level, then we call the bit a ‘1’, and if it is lower, we call it a ‘0’. This enables us to vary voltages around our logic board to transfer information!</p>
-</blockquote>
-<p>Since we can change voltages really really fast, this becomes a really fast way to transfer information accurately. Since the information is a series of zeroes and ones, it is difficult to mess it up, as long the voltage varies by a large margin.</p>
+            <p>Today, I shall attempt to shed some light on why computers seem to do so many things at once, and the illusion of parallel processing on a single core.</p>
+<p>It is easy to see examples of this in everyday life. Our computers, and phones have multiple apps that run simultaneously. I can check my email in Outlook while editing an image in Photoshop. But if you really think about it, is this really happening simultaneously?</p>
+<p>A few years ago, most computers had only one processor core. It is changing now, and as of 2016, some mobile phones have quad (4) core capabilities. However, back in the day, it was still possible to run multiple programs at once, and experience a multi-tasking environment. This is made possible by having some kind of a process scheduler.</p>
+<p>Let me provide an analogy. We are operating a restaurant that has a lot of chefs, but only one waiter. However, he is incredibly fast, and has a notebook that he writes orders on. One way of operating this restaurant might be to send the waiter to a table, wait for the customers to decide their order for a particular course, and then submit their order to the chef, and then wait by them as they ate that course, until they are ready to order the next course. However, this seems very inefficient, especially as several customers are waiting to submit their order. </p>
+<p>So, what can we do instead? We can have our waiter carry an order for a single course, bring it back to the customer, and move on to another customer. The waiter opens another page in his notebook in anticipation for the next customer’s order. Then, when the first customer is finally ready to order the next course, the waiter goes back to them.</p>
+<p>This, in computer parlance, is the essence of process scheduling. Programs are composed of multiple instructions (orders), interspersed with periods of time when they are just waiting for data/signals. The scheduler realizes this, and re-allocates memory (similar to the waiter writing new instructions on a different page) to another process in the priority queue while waiting for the first program to provide a signal that it is ready to send new instructions. By doing this, we are able to acheive the illusion of multi-tasking!</p>
 
             
         </div>
@@ -183,7 +184,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/Theory/">Theory</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/CS-Fundamentals/">CS Fundamentals</a> <a class="tag tag--primary tag--small t-link" href="/tags/Theory/">Theory</a>
 
             </div>
         
@@ -192,7 +193,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/06/2015-04-24-stack-sort/"  data-tooltip="Stack Sort">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -200,7 +201,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/06/2015-04-24-stack-sort/" data-tooltip="Stack Sort">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -215,17 +216,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2013/11/06/2013-12-31-binary-tales/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2016/01/20/fair-scheduling/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2013/11/06/2013-12-31-binary-tales/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/01/20/fair-scheduling/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2013/11/06/2013-12-31-binary-tales/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2016/01/20/fair-scheduling/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -273,7 +274,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/06/2015-04-24-stack-sort/"  data-tooltip="Stack Sort">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -281,7 +282,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/06/2015-04-24-stack-sort/" data-tooltip="Stack Sort">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -296,17 +297,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2013/11/06/2013-12-31-binary-tales/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2016/01/20/fair-scheduling/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2013/11/06/2013-12-31-binary-tales/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/01/20/fair-scheduling/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2013/11/06/2013-12-31-binary-tales/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2016/01/20/fair-scheduling/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -332,17 +333,17 @@
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2013/11/06/2013-12-31-binary-tales/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2016/01/20/fair-scheduling/">
                 <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2013/11/06/2013-12-31-binary-tales/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/01/20/fair-scheduling/">
                 <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2013/11/06/2013-12-31-binary-tales/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2016/01/20/fair-scheduling/">
                 <i class="fa fa-twitter"></i><span>Share on Twitter</span>
             </a>
         </li>
@@ -396,9 +397,9 @@
     
         <script>
              var disqus_config = function () {
-                 this.page.url = 'http://yoursite.com/2013/11/06/2013-12-31-binary-tales/';
+                 this.page.url = 'http://yoursite.com/2016/01/20/fair-scheduling/';
                  
-                    this.page.identifier = '2013/11/06/2013-12-31-binary-tales/';
+                    this.page.identifier = '2016/01/20/fair-scheduling/';
                                   
              };
             (function() {

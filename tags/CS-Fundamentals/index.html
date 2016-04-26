@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Pranav&#39;s coding adventures">
-    <title>Archives: 2013/11 - Pranav&#39;s coding adventures</title>
+    <title>Tag: CS Fundamentals - Pranav&#39;s coding adventures</title>
     <meta name="author" content="Pranav">
     
     
@@ -14,7 +14,7 @@
     <meta name="description">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Pranav's coding adventures">
-<meta property="og:url" content="http://yoursite.com/archives/2013/11/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/CS-Fundamentals/index.html">
 <meta property="og:site_name" content="Pranav's coding adventures">
 <meta property="og:description">
 <meta name="twitter:card" content="summary">
@@ -154,15 +154,15 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
                     
-                        <a class="link-unstyled" href="/2013/11/06/2013-12-31-binary-tales/">
-                            Binary Tales
+                        <a class="link-unstyled" href="/2016/01/20/fair-scheduling/">
+                            Illusion of multi-tasking on a single processor core (WIP)
                         </a>
                     
                 </h1>
                 <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Wed Nov 06 2013 06:40:12 GMT-0800">
+    <time itemprop="datePublished" content="Wed Jan 20 2016 06:40:12 GMT-0800">
 	
-		    Nov 06, 2013
+		    Jan 20, 2016
     	
     </time>
     
@@ -171,21 +171,19 @@
             
             
                 <div class="postShorten-content" itemprop="articleBody">
-                    <p>So, you would like to learn more about what binary numbers are, and why we need them. There is a reason why the binary system was chosen for building electrical systems and powering basically any system dependant on logic.</p>
-<p>Let us dive into numbers…</p>
-<p>Look at your bank statement. Or your bills, or even your paycheques. You might have noticed that the numbers are in the decimal format. The word ‘decimal’ is derived from Greek, loosely translated into ‘numbers that use ten as their base’. Why do we use this, over other number systems in our everyday activities, and our monetary system? One speculation is that it is because we have ten fingers on our hands, and coincidentally, ten toes on our feet. We can “understand” ten-based number systems easily, as we realize that we need another hand to count #11.</p>
-<p>In the world of electricity, circuits, and machines powered by logic, information is represented by bits, the smallest unit of data, which in a crude approximation, is just a matter of looking at the electrical voltage and comparing it to a voltage logic level set by a human. </p>
-<blockquote>
-<p>If our voltage is higher than the logic level, then we call the bit a ‘1’, and if it is lower, we call it a ‘0’. This enables us to vary voltages around our logic board to transfer information!</p>
-</blockquote>
-<p>Since we can change voltages really really fast, this becomes a really fast way to transfer information accurately. Since the information is a series of zeroes and ones, it is difficult to mess it up, as long the voltage varies by a large margin.</p>
+                    <p>Today, I shall attempt to shed some light on why computers seem to do so many things at once, and the illusion of parallel processing on a single core.</p>
+<p>It is easy to see examples of this in everyday life. Our computers, and phones have multiple apps that run simultaneously. I can check my email in Outlook while editing an image in Photoshop. But if you really think about it, is this really happening simultaneously?</p>
+<p>A few years ago, most computers had only one processor core. It is changing now, and as of 2016, some mobile phones have quad (4) core capabilities. However, back in the day, it was still possible to run multiple programs at once, and experience a multi-tasking environment. This is made possible by having some kind of a process scheduler.</p>
+<p>Let me provide an analogy. We are operating a restaurant that has a lot of chefs, but only one waiter. However, he is incredibly fast, and has a notebook that he writes orders on. One way of operating this restaurant might be to send the waiter to a table, wait for the customers to decide their order for a particular course, and then submit their order to the chef, and then wait by them as they ate that course, until they are ready to order the next course. However, this seems very inefficient, especially as several customers are waiting to submit their order. </p>
+<p>So, what can we do instead? We can have our waiter carry an order for a single course, bring it back to the customer, and move on to another customer. The waiter opens another page in his notebook in anticipation for the next customer’s order. Then, when the first customer is finally ready to order the next course, the waiter goes back to them.</p>
+<p>This, in computer parlance, is the essence of process scheduling. Programs are composed of multiple instructions (orders), interspersed with periods of time when they are just waiting for data/signals. The scheduler realizes this, and re-allocates memory (similar to the waiter writing new instructions on a different page) to another process in the priority queue while waiting for the first program to provide a signal that it is ready to send new instructions. By doing this, we are able to acheive the illusion of multi-tasking!</p>
 
                     
                         
                     
                     
                         <p>
-                            <a href="/2013/11/06/2013-12-31-binary-tales/#post-footer" class="postShorten-excerpt_link link">
+                            <a href="/2016/01/20/fair-scheduling/#post-footer" class="postShorten-excerpt_link link">
                                 Comment and share
                             </a>
                         </p>
@@ -205,7 +203,6 @@
 </div>
 
 </section>
-
 
 
                 <footer id="footer" class="main-content-wrap">

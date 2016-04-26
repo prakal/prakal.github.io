@@ -153,6 +153,52 @@
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
                     
+                        <a class="link-unstyled" href="/2016/01/20/fair-scheduling/">
+                            Illusion of multi-tasking on a single processor core (WIP)
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Wed Jan 20 2016 06:40:12 GMT-0800">
+	
+		    Jan 20, 2016
+    	
+    </time>
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <p>Today, I shall attempt to shed some light on why computers seem to do so many things at once, and the illusion of parallel processing on a single core.</p>
+<p>It is easy to see examples of this in everyday life. Our computers, and phones have multiple apps that run simultaneously. I can check my email in Outlook while editing an image in Photoshop. But if you really think about it, is this really happening simultaneously?</p>
+<p>A few years ago, most computers had only one processor core. It is changing now, and as of 2016, some mobile phones have quad (4) core capabilities. However, back in the day, it was still possible to run multiple programs at once, and experience a multi-tasking environment. This is made possible by having some kind of a process scheduler.</p>
+<p>Let me provide an analogy. We are operating a restaurant that has a lot of chefs, but only one waiter. However, he is incredibly fast, and has a notebook that he writes orders on. One way of operating this restaurant might be to send the waiter to a table, wait for the customers to decide their order for a particular course, and then submit their order to the chef, and then wait by them as they ate that course, until they are ready to order the next course. However, this seems very inefficient, especially as several customers are waiting to submit their order. </p>
+<p>So, what can we do instead? We can have our waiter carry an order for a single course, bring it back to the customer, and move on to another customer. The waiter opens another page in his notebook in anticipation for the next customer’s order. Then, when the first customer is finally ready to order the next course, the waiter goes back to them.</p>
+<p>This, in computer parlance, is the essence of process scheduling. Programs are composed of multiple instructions (orders), interspersed with periods of time when they are just waiting for data/signals. The scheduler realizes this, and re-allocates memory (similar to the waiter writing new instructions on a different page) to another process in the priority queue while waiting for the first program to provide a signal that it is ready to send new instructions. By doing this, we are able to acheive the illusion of multi-tasking!</p>
+
+                    
+                        
+                    
+                    
+                        <p>
+                            <a href="/2016/01/20/fair-scheduling/#post-footer" class="postShorten-excerpt_link link">
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
                         <a class="link-unstyled" href="/2015/11/06/2015-04-24-stack-sort/">
                             Stack Sort
                         </a>
@@ -439,15 +485,15 @@ comparison = 4</code></p>
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
                     
-                        <a class="link-unstyled" href="/2013/11/06/2013-12-31-binary-tales/">
+                        <a class="link-unstyled" href="/2014/07/06/2013-12-31-binary-tales/">
                             Binary Tales
                         </a>
                     
                 </h1>
                 <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Wed Nov 06 2013 06:40:12 GMT-0800">
+    <time itemprop="datePublished" content="Sun Jul 06 2014 06:40:12 GMT-0700">
 	
-		    Nov 06, 2013
+		    Jul 06, 2014
     	
     </time>
     
@@ -470,7 +516,7 @@ comparison = 4</code></p>
                     
                     
                         <p>
-                            <a href="/2013/11/06/2013-12-31-binary-tales/#post-footer" class="postShorten-excerpt_link link">
+                            <a href="/2014/07/06/2013-12-31-binary-tales/#post-footer" class="postShorten-excerpt_link link">
                                 Comment and share
                             </a>
                         </p>
