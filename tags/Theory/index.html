@@ -110,6 +110,18 @@
                 </a>
         </li>
         
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">Tags</span>
+                </a>
+        </li>
+        
     </ul>
     
         <ul class="sidebar-buttons">
@@ -147,6 +159,101 @@
     
 
 <section class="postShorten-group main-content-wrap">
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2016/02/25/user-kernel-transitions/">
+                            Why are user-kernel transitions not cheap? (WIP)
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Thu Feb 25 2016 06:40:12 GMT-0800">
+	
+		    Feb 25, 2016
+    	
+    </time>
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <p>On Unix based systems, when an application tries to access some privileged resources, such as attempting to request extra CPU cycles, or access to a certain memory location, the request is deferred to the kernel. </p>
+<p>This is done by setting a ‘trap bit’, a bit that denotes that their action might need additional permission. The kernel then receives control, and then decides whether to allow or deny that particular action based on the policies set up. After that, control is transferred back to the application. </p>
+<p>On a single core 2GHz Linux Machine, it takes about 50-100 ns (nanoseconds) to perform the above transition. While it looks negligible, it adds up, since this action happens innumerable times during the day and is necessary for a properly running OS.</p>
+<p>Also, since these instructions have to be loaded on the hardware cache, existing content on the cache will be overwritten, and application content will be transferred to memory instead. Accessing the hardware cache takes an order of 10^1 cycles, while accessing memory might take 10^2 cycles. So, frequent transitions will adversely affect the overall efficiency of the computer. </p>
+<p>I learnt this on Udacity’s wonderful course on Operating Systems at<br><div class="video-container"><iframe src="//www.youtube.com/embed/jEIveiotF74" frameborder="0" allowfullscreen></iframe></div></p>
+<p>Please do check it out if you’re interested!</p>
+
+                    
+                        
+                    
+                    
+                        <p>
+                            <a href="/2016/02/25/user-kernel-transitions/#post-footer" class="postShorten-excerpt_link link">
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+        <div class="postShorten-wrap">
+            <div class="postShorten-header">
+                <h1 class="postShorten-title" itemprop="headline">
+                    
+                        <a class="link-unstyled" href="/2016/01/27/context-switch/">
+                            What on earth is a context switch? Is it good for me? (WIP)
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Wed Jan 27 2016 06:40:12 GMT-0800">
+	
+		    Jan 27, 2016
+    	
+    </time>
+    
+</div>
+            </div>
+            
+            
+                <div class="postShorten-content" itemprop="articleBody">
+                    <p>A context switch happens when a running process gets interrupted by the operating system, in order to run another process.</p>
+<p>Literally speaking, the operating system uses a process control block (PCB), which contains information about running processes. Typically, memory address spaces, program counter, and stack information are present on this block.</p>
+<p>When one process is interrupted by another, the PCB for the first process is moved off the hardware cache, and replaced by the PCB for the second one. This finishes the context switch, and the new ‘running’ process can send requests to the operating system. </p>
+<p>Now, onto whether it is good for you? The answer is <strong>NO</strong>!<br>This is an expensive operation, for two reasons:</p>
+<ol>
+<li>The one time swap of the process control block is relatively expensive </li>
+<li>Continuously cycling through processes moves PCB’s off the super fast hardware cache to slow read/write memory, or even the super slow disk.</li>
+</ol>
+<p>More to come!</p>
+
+                    
+                        
+                    
+                    
+                        <p>
+                            <a href="/2016/01/27/context-switch/#post-footer" class="postShorten-excerpt_link link">
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
     
     
     <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">

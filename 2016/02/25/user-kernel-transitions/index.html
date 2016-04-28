@@ -6,24 +6,21 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Pranav&#39;s coding adventures">
-    <title>Stack Sort - Pranav&#39;s coding adventures</title>
+    <title>Why are user-kernel transitions not cheap? (WIP) - Pranav&#39;s coding adventures</title>
     <meta name="author" content="Pranav">
     
     
     
-    <meta name="description" content="Prompt:
-Sort a Stack class in ascending order without using any other data structure other than one more Stack. Solve it in strictly linear space complexity. You have access to the push, pop and isEmp">
+    <meta name="description" content="On Unix based systems, when an application tries to access some privileged resources, such as attempting to request extra CPU cycles, or access to a certain memory location, the request is deferred to">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Stack Sort">
-<meta property="og:url" content="http://yoursite.com/2015/11/06/2015-04-24-stack-sort/index.html">
+<meta property="og:title" content="Why are user-kernel transitions not cheap? (WIP)">
+<meta property="og:url" content="http://yoursite.com/2016/02/25/user-kernel-transitions/index.html">
 <meta property="og:site_name" content="Pranav's coding adventures">
-<meta property="og:description" content="Prompt:
-Sort a Stack class in ascending order without using any other data structure other than one more Stack. Solve it in strictly linear space complexity. You have access to the push, pop and isEmp">
-<meta property="og:updated_time" content="2016-04-25T03:09:29.000Z">
+<meta property="og:description" content="On Unix based systems, when an application tries to access some privileged resources, such as attempting to request extra CPU cycles, or access to a certain memory location, the request is deferred to">
+<meta property="og:updated_time" content="2016-04-27T23:40:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Stack Sort">
-<meta name="twitter:description" content="Prompt:
-Sort a Stack class in ascending order without using any other data structure other than one more Stack. Solve it in strictly linear space complexity. You have access to the push, pop and isEmp">
+<meta name="twitter:title" content="Why are user-kernel transitions not cheap? (WIP)">
+<meta name="twitter:description" content="On Unix based systems, when an application tries to access some privileged resources, such as attempting to request extra CPU cycles, or access to a certain memory location, the request is deferred to">
     
     
         
@@ -166,13 +163,13 @@ Sort a Stack class in ascending order without using any other data structure oth
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            Stack Sort
+            Why are user-kernel transitions not cheap? (WIP)
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Fri Nov 06 2015 06:40:12 GMT-0800">
+    <time itemprop="datePublished" content="Thu Feb 25 2016 06:40:12 GMT-0800">
 	
-		    Nov 06, 2015
+		    Feb 25, 2016
     	
     </time>
     
@@ -181,252 +178,12 @@ Sort a Stack class in ascending order without using any other data structure oth
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h2 id="Prompt"><a href="#Prompt" class="headerlink" title="Prompt:"></a>Prompt:</h2><blockquote>
-<p>Sort a Stack class in ascending order without using any other data structure other than one more Stack. Solve it in strictly linear space complexity. You have access to the push, pop and isEmpty methods on the Stack. Go!</p>
-</blockquote>
-<p>First off, what is a Stack? To refresh your memory, a Stack resembles dirty dishes in a sink. When you need to wash them, you start with the dishes on top rather than the dishes on the bottom. So, the first dirty dish to enter the sink gets washed last.</p>
-<p>There are three important methods on Stack:</p>
-<ul>
-<li><code>Push(value)</code>: Adds the value to the top of the Stack  </li>
-<li><code>Pop():</code> Removes the value at the top of the Stack, and returns the value</li>
-<li><code>isEmpty():</code> Returns whether the Stack has any items </li>
-</ul>
-<h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><ul>
-<li><code>Inputs</code>: An unsorted Stack with some integers</li>
-<li><code>Outputs</code>: A sorted Stack (largest integers on top, smallest at bottom)</li>
-<li><code>Constraints</code>: Only use another Stack to help sort, and variables when required</li>
-</ul>
-<blockquote>
-<p>My method involves popping a value from one Stack, comparing it to a variable, and selectively pushing it to another Stack. When the first Stack is empty, we can run the same Algorithmthm on the second Stack and selectively push values to the first Stack. When there are no more items to push, we can successfully say that we have sorted the Stack.</p>
-</blockquote>
-<p>If you did not understand the solution from the paragraph above, do not fear, the rest of this article is for you!</p>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Let us use an example problem to illustrate this technique.</p>
-<table>
-<thead>
-<tr>
-<th>Stack A</th>
-<th style="text-align:right">Stack B (empty)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>9</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>4</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>12</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>6</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>7</td>
-</tr>
-</tbody>
-</table>
-<p>Also, we have three variables, <code>i</code>, that starts at <code>0</code> , <code>comparison</code>, that starts at <code>undefined</code>, and <code>done</code> that starts as <code>false</code>.</p>
-<p>Start: Full stack - Stack A, while empty stack is Stack B.</p>
-<ol>
-<li>Set done to be true at the beginning of every loop. </li>
-<li><code>pop()</code> on Stack A. This returns 9. Stack now has only 4 elements, since 9 is removed from the Stack.</li>
-<li>Assign 9 to comparison.</li>
-<li>If <code>i</code> is divisible by 2:<ul>
-<li>Compare 4 to <code>comparison</code> (9), and push the smaller value in the other Stack (Stack B).</li>
-<li>We place the larger value in the comparison variable.</li>
-</ul>
-</li>
-<li>If <code>i</code> is not divisible by 2:<ul>
-<li>Compare 4 to <code>comparison</code> (9), and push the larger value in the other Stack (Stack B).</li>
-<li>We place the smaller value in the <code>comparison</code> variable.</li>
-</ul>
-</li>
-<li>Repeat process over the entire Stack A. If the <code>comparison</code>variable changes at any time, set done to be false</li>
-<li>When Stack A is empty, <code>isEmpty(Stack A)</code> returns true.</li>
-<li><code>i</code> is incremented. In this case, <code>i</code> is 1.</li>
-<li>If done is true, we push comparison value to the recently filled Stack. For <code>i % 2 = 0</code>, it is Stack B, while for <code>i % 2 = 1</code>, it is Stack A. </li>
-<li>If <code>i</code> is not divisible by 2:<ul>
-<li>Repeat 1 through 7. </li>
-<li>Push value in <code>comparison</code> variable in Stack A.</li>
-<li>Move items from Stack B to Stack A.</li>
-</ul>
-</li>
-<li>If <code>i</code> is divisible by 2:<ul>
-<li>Repeat 1 through 7.</li>
-<li>Push value in <code>comparison</code> variable in Stack B. </li>
-<li>Move items from Stack A to Stack B.</li>
-</ul>
-</li>
-</ol>
-<p>After the first pass, the stacks should look as follows:</p>
-<table>
-<thead>
-<tr>
-<th>Stack A (empty)</th>
-<th style="text-align:right">Stack B</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td style="text-align:right">-</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">7</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">6</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">9</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">4</td>
-</tr>
-</tbody>
-</table>
-<p><code>i = 1,
-comparison = 12</code></p>
-<p>After the second pass, the stacks should look as follows:</p>
-<table>
-<thead>
-<tr>
-<th>Stack A</th>
-<th style="text-align:right">Stack B (empty)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>6</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>9</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>7</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>12</td>
-</tr>
-</tbody>
-</table>
-<p><code>i = 2,
-comparison = 4</code></p>
-<p>After the third pass, the stacks should look as follows:</p>
-<table>
-<thead>
-<tr>
-<th>Stack A (empty)</th>
-<th style="text-align:right">Stack B</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td style="text-align:right">-</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">9</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">7</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">6</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">4</td>
-</tr>
-</tbody>
-</table>
-<p><code>i = 3,
-comparison = 12</code></p>
-<p>After the fourth pass, the stacks should look as follows:</p>
-<table>
-<thead>
-<tr>
-<th>Stack A</th>
-<th style="text-align:right">Stack B (empty)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>6</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>7</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>9</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>12</td>
-</tr>
-</tbody>
-</table>
-<p><code>i = 4,
-comparison = 4</code></p>
-<p>Since done stays as true through the entire pass, we push the value in comparison to Stack A.</p>
-<p>Eventually, it looks like this:</p>
-<table>
-<thead>
-<tr>
-<th>Stack A</th>
-<th style="text-align:right">Stack B (empty)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>4</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>6</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>7</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>9</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>12</td>
-</tr>
-</tbody>
-</table>
-<p>And voila, sort for a Stack has been accomplished!</p>
-<p>Have questions or suggestions? Feel free to <a href="https://github.com/prakal/prakal.github.io/issues/new" target="_blank" rel="external">open an issue on GitHub</a>.</p>
-<p>Cheers!</p>
+            <p>On Unix based systems, when an application tries to access some privileged resources, such as attempting to request extra CPU cycles, or access to a certain memory location, the request is deferred to the kernel. </p>
+<p>This is done by setting a ‘trap bit’, a bit that denotes that their action might need additional permission. The kernel then receives control, and then decides whether to allow or deny that particular action based on the policies set up. After that, control is transferred back to the application. </p>
+<p>On a single core 2GHz Linux Machine, it takes about 50-100 ns (nanoseconds) to perform the above transition. While it looks negligible, it adds up, since this action happens innumerable times during the day and is necessary for a properly running OS.</p>
+<p>Also, since these instructions have to be loaded on the hardware cache, existing content on the cache will be overwritten, and application content will be transferred to memory instead. Accessing the hardware cache takes an order of 10^1 cycles, while accessing memory might take 10^2 cycles. So, frequent transitions will adversely affect the overall efficiency of the computer. </p>
+<p>I learnt this on Udacity’s wonderful course on Operating Systems at<br><div class="video-container"><iframe src="//www.youtube.com/embed/jEIveiotF74" frameborder="0" allowfullscreen></iframe></div></p>
+<p>Please do check it out if you’re interested!</p>
 
             
         </div>
@@ -436,7 +193,7 @@ comparison = 4</code></p>
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/Algorithms/">Algorithms</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/CS-Fundamentals/">CS Fundamentals</a> <a class="tag tag--primary tag--small t-link" href="/tags/Theory/">Theory</a>
 
             </div>
         
@@ -445,7 +202,7 @@ comparison = 4</code></p>
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/20/fair-scheduling/"  data-tooltip="Illusion of multi-tasking on a single processor core (WIP)">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -453,7 +210,7 @@ comparison = 4</code></p>
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/07/06/2013-12-31-binary-tales/" data-tooltip="Binary Tales">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/27/context-switch/" data-tooltip="What on earth is a context switch? Is it good for me? (WIP)">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -468,17 +225,17 @@ comparison = 4</code></p>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2015/11/06/2015-04-24-stack-sort/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2016/02/25/user-kernel-transitions/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2015/11/06/2015-04-24-stack-sort/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/02/25/user-kernel-transitions/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2015/11/06/2015-04-24-stack-sort/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2016/02/25/user-kernel-transitions/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -526,7 +283,7 @@ comparison = 4</code></p>
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/20/fair-scheduling/"  data-tooltip="Illusion of multi-tasking on a single processor core (WIP)">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -534,7 +291,7 @@ comparison = 4</code></p>
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/07/06/2013-12-31-binary-tales/" data-tooltip="Binary Tales">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/27/context-switch/" data-tooltip="What on earth is a context switch? Is it good for me? (WIP)">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -549,17 +306,17 @@ comparison = 4</code></p>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2015/11/06/2015-04-24-stack-sort/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2016/02/25/user-kernel-transitions/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2015/11/06/2015-04-24-stack-sort/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/02/25/user-kernel-transitions/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2015/11/06/2015-04-24-stack-sort/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2016/02/25/user-kernel-transitions/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -585,17 +342,17 @@ comparison = 4</code></p>
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2015/11/06/2015-04-24-stack-sort/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://yoursite.com/2016/02/25/user-kernel-transitions/">
                 <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2015/11/06/2015-04-24-stack-sort/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://yoursite.com/2016/02/25/user-kernel-transitions/">
                 <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2015/11/06/2015-04-24-stack-sort/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://yoursite.com/2016/02/25/user-kernel-transitions/">
                 <i class="fa fa-twitter"></i><span>Share on Twitter</span>
             </a>
         </li>
@@ -649,9 +406,9 @@ comparison = 4</code></p>
     
         <script>
              var disqus_config = function () {
-                 this.page.url = 'http://yoursite.com/2015/11/06/2015-04-24-stack-sort/';
+                 this.page.url = 'http://yoursite.com/2016/02/25/user-kernel-transitions/';
                  
-                    this.page.identifier = '2015/11/06/2015-04-24-stack-sort/';
+                    this.page.identifier = '2016/02/25/user-kernel-transitions/';
                                   
              };
             (function() {
