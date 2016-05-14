@@ -6,21 +6,27 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Pranav&#39;s coding adventures">
-    <title>Why are user-kernel transitions not cheap? (WIP) - Pranav&#39;s coding adventures</title>
+    <title>When should I use a Git rebase workflow? (WIP) - Pranav&#39;s coding adventures</title>
     <meta name="author" content="Pranav">
     
     
     
-    <meta name="description" content="On Unix based systems, when an application tries to access some privileged resources, such as attempting to request extra CPU cycles, or access to a certain memory location, the request is deferred to">
+    <meta name="description" content="Git rebase workflow
+
+pros and cons">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Why are user-kernel transitions not cheap? (WIP)">
-<meta property="og:url" content="pkpk.tech/2016/02/25/user-kernel-transitions/index.html">
+<meta property="og:title" content="When should I use a Git rebase workflow? (WIP)">
+<meta property="og:url" content="pkpk.tech/2012/02/25/Git rebase workflow/index.html">
 <meta property="og:site_name" content="Pranav's coding adventures">
-<meta property="og:description" content="On Unix based systems, when an application tries to access some privileged resources, such as attempting to request extra CPU cycles, or access to a certain memory location, the request is deferred to">
-<meta property="og:updated_time" content="2016-04-27T23:40:52.000Z">
+<meta property="og:description" content="Git rebase workflow
+
+pros and cons">
+<meta property="og:updated_time" content="2016-04-28T22:51:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Why are user-kernel transitions not cheap? (WIP)">
-<meta name="twitter:description" content="On Unix based systems, when an application tries to access some privileged resources, such as attempting to request extra CPU cycles, or access to a certain memory location, the request is deferred to">
+<meta name="twitter:title" content="When should I use a Git rebase workflow? (WIP)">
+<meta name="twitter:description" content="Git rebase workflow
+
+pros and cons">
     
     
         
@@ -175,13 +181,13 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            Why are user-kernel transitions not cheap? (WIP)
+            When should I use a Git rebase workflow? (WIP)
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Thu Feb 25 2016 06:40:12 GMT-0800">
+    <time itemprop="datePublished" content="Sat Feb 25 2012 06:40:12 GMT-0800">
 	
-		    Feb 25, 2016
+		    Feb 25, 2012
     	
     </time>
     
@@ -190,12 +196,10 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>On Unix based systems, when an application tries to access some privileged resources, such as attempting to request extra CPU cycles, or access to a certain memory location, the request is deferred to the kernel. </p>
-<p>This is done by setting a ‘trap bit’, a bit that denotes that their action might need additional permission. The kernel then receives control, and then decides whether to allow or deny that particular action based on the policies set up. After that, control is transferred back to the application. </p>
-<p>On a single core 2GHz Linux Machine, it takes about 50-100 ns (nanoseconds) to perform the above transition. While it looks negligible, it adds up, since this action happens innumerable times during the day and is necessary for a properly running OS.</p>
-<p>Also, since these instructions have to be loaded on the hardware cache, existing content on the cache will be overwritten, and application content will be transferred to memory instead. Accessing the hardware cache takes an order of 10^1 cycles, while accessing memory might take 10^2 cycles. So, frequent transitions will adversely affect the overall efficiency of the computer. </p>
-<p>I learnt this on Udacity’s wonderful course on Operating Systems at<br><div class="video-container"><iframe src="//www.youtube.com/embed/jEIveiotF74" frameborder="0" allowfullscreen></iframe></div></p>
-<p>Please do check it out if you’re interested!</p>
+            <p>Git rebase workflow</p>
+<ul>
+<li>pros and cons</li>
+</ul>
 
             
         </div>
@@ -205,7 +209,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/CS-Fundamentals/">CS Fundamentals</a> <a class="tag tag--primary tag--small t-link" href="/tags/Theory/">Theory</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/Git/">Git</a> <a class="tag tag--primary tag--small t-link" href="/tags/Work/">Work</a>
 
             </div>
         
@@ -214,7 +218,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/14/curious hanging npm/"  data-tooltip="NPM just hangs and hogs network connections">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2012/02/25/Mentorship opportunities/"  data-tooltip="Why are user-kernel transitions not cheap? (WIP)">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -222,7 +226,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/27/context-switch/" data-tooltip="What on earth is a context switch? Is it good for me? (WIP)">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -237,17 +241,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=pkpk.tech/2012/02/25/Git rebase workflow/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=pkpk.tech/2012/02/25/Git rebase workflow/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=pkpk.tech/2012/02/25/Git rebase workflow/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -295,7 +299,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/14/curious hanging npm/"  data-tooltip="NPM just hangs and hogs network connections">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2012/02/25/Mentorship opportunities/"  data-tooltip="Why are user-kernel transitions not cheap? (WIP)">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -303,7 +307,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/27/context-switch/" data-tooltip="What on earth is a context switch? Is it good for me? (WIP)">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -318,17 +322,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=pkpk.tech/2012/02/25/Git rebase workflow/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=pkpk.tech/2012/02/25/Git rebase workflow/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=pkpk.tech/2012/02/25/Git rebase workflow/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -354,17 +358,17 @@
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=pkpk.tech/2012/02/25/Git rebase workflow/">
                 <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=pkpk.tech/2012/02/25/Git rebase workflow/">
                 <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=pkpk.tech/2012/02/25/Git rebase workflow/">
                 <i class="fa fa-twitter"></i><span>Share on Twitter</span>
             </a>
         </li>
@@ -418,9 +422,9 @@
     
         <script>
              var disqus_config = function () {
-                 this.page.url = 'pkpk.tech/2016/02/25/user-kernel-transitions/';
+                 this.page.url = 'pkpk.tech/2012/02/25/Git rebase workflow/';
                  
-                    this.page.identifier = '2016/02/25/user-kernel-transitions/';
+                    this.page.identifier = '2012/02/25/Git rebase workflow/';
                                   
              };
             (function() {

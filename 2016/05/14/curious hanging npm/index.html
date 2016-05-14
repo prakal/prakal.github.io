@@ -6,21 +6,24 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Pranav&#39;s coding adventures">
-    <title>Why are user-kernel transitions not cheap? (WIP) - Pranav&#39;s coding adventures</title>
+    <title>NPM just hangs and hogs network connections - Pranav&#39;s coding adventures</title>
     <meta name="author" content="Pranav">
     
     
     
-    <meta name="description" content="On Unix based systems, when an application tries to access some privileged resources, such as attempting to request extra CPU cycles, or access to a certain memory location, the request is deferred to">
+    <meta name="description" content="For context, I use a MacBook running Yosemite and use the standard Bash shell. 
+So, one fine day when I wanted to work on submitting a pull request on Github, I did the standard git clone, and npm ins">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Why are user-kernel transitions not cheap? (WIP)">
-<meta property="og:url" content="pkpk.tech/2016/02/25/user-kernel-transitions/index.html">
+<meta property="og:title" content="NPM just hangs and hogs network connections">
+<meta property="og:url" content="pkpk.tech/2016/05/14/curious hanging npm/index.html">
 <meta property="og:site_name" content="Pranav's coding adventures">
-<meta property="og:description" content="On Unix based systems, when an application tries to access some privileged resources, such as attempting to request extra CPU cycles, or access to a certain memory location, the request is deferred to">
-<meta property="og:updated_time" content="2016-04-27T23:40:52.000Z">
+<meta property="og:description" content="For context, I use a MacBook running Yosemite and use the standard Bash shell. 
+So, one fine day when I wanted to work on submitting a pull request on Github, I did the standard git clone, and npm ins">
+<meta property="og:updated_time" content="2016-05-14T20:48:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Why are user-kernel transitions not cheap? (WIP)">
-<meta name="twitter:description" content="On Unix based systems, when an application tries to access some privileged resources, such as attempting to request extra CPU cycles, or access to a certain memory location, the request is deferred to">
+<meta name="twitter:title" content="NPM just hangs and hogs network connections">
+<meta name="twitter:description" content="For context, I use a MacBook running Yosemite and use the standard Bash shell. 
+So, one fine day when I wanted to work on submitting a pull request on Github, I did the standard git clone, and npm ins">
     
     
         
@@ -175,13 +178,13 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            Why are user-kernel transitions not cheap? (WIP)
+            NPM just hangs and hogs network connections
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Thu Feb 25 2016 06:40:12 GMT-0800">
+    <time itemprop="datePublished" content="Sat May 14 2016 06:40:12 GMT-0700">
 	
-		    Feb 25, 2016
+		    May 14, 2016
     	
     </time>
     
@@ -190,12 +193,22 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>On Unix based systems, when an application tries to access some privileged resources, such as attempting to request extra CPU cycles, or access to a certain memory location, the request is deferred to the kernel. </p>
-<p>This is done by setting a ‘trap bit’, a bit that denotes that their action might need additional permission. The kernel then receives control, and then decides whether to allow or deny that particular action based on the policies set up. After that, control is transferred back to the application. </p>
-<p>On a single core 2GHz Linux Machine, it takes about 50-100 ns (nanoseconds) to perform the above transition. While it looks negligible, it adds up, since this action happens innumerable times during the day and is necessary for a properly running OS.</p>
-<p>Also, since these instructions have to be loaded on the hardware cache, existing content on the cache will be overwritten, and application content will be transferred to memory instead. Accessing the hardware cache takes an order of 10^1 cycles, while accessing memory might take 10^2 cycles. So, frequent transitions will adversely affect the overall efficiency of the computer. </p>
-<p>I learnt this on Udacity’s wonderful course on Operating Systems at<br><div class="video-container"><iframe src="//www.youtube.com/embed/jEIveiotF74" frameborder="0" allowfullscreen></iframe></div></p>
-<p>Please do check it out if you’re interested!</p>
+            <p>For context, I use a MacBook running Yosemite and use the standard Bash shell. </p>
+<p>So, one fine day when I wanted to work on submitting a pull request on Github, I did the standard git clone, and npm install, and went to browse a post on Hackernews. I managed to get through the article and then Safari froze. I tried Chrome, but to no avail. It looked like my internet wasn’t working. Ok. This has happened occassionally. I turned WiFi off and on.</p>
+<p>Still didn’t work.</p>
+<p>Then I realized that my npm process was still running! I stopped it, and my internet was back to normal. I reran npm, and voila, same issue. I ran du -hcs node_modules, and absent mindedly noted that the size of the npm modules was 55M.</p>
+<p>So I stopped the npm process, and rm -rf node_modules folder, did npm cache clean, and tried again. Nope. Still didn’t work.</p>
+<p>I had to use internet’s favourite search engine to get to the bottom of this. Some resources pointed to running npm install -ddd, which sounds funny, but I tried it. This time I got a large log statement about all the packages installed. I tried running grunt test to see all the tests pass, but I got an error about not being able to find a module. I gutted the node_modules folder again, and followed the above steps. Interestingly now, I got a different error log when I ran grunt test. This involved grunt not being able to find dependencies.</p>
+<p>It seemed like I had made some more headway into the process though. But, confusingly enough, the node_modules folder size was now only 21M.</p>
+<p>So, I did some more sleuthing in the output log of npm install -ddd, and realized that the process froze at multiple calls fetching the same resource:</p>
+<p><code> addRemoteTarball [ ‘<a href="https://registry.npmjs.org/request/-/request-2.72.0.tgz" target="_blank" rel="external">https://registry.npmjs.org/request/-/request-2.72.0.tgz</a>‘ </code></p>
+<p>This was quite curious indeed.</p>
+<p>Eventually, I stumbled upon the <a href="https://github.com/npm/npm/issues/1229" target="_blank" rel="external">issue in Github detailing this error</a>, and I am happy to report that it worked for me. It might not be the ideal, elegant solution, but it let me carry on with my work… Here’s the fix:</p>
+<p><code> npm config set registry <a href="http://registry.npmjs.org" target="_blank" rel="external">http://registry.npmjs.org</a> </code></p>
+<p>It turns out that the npm config variable was set to use a <code>https</code> server for registry rather than <code>http</code>. This makes sense, as <code>https</code> is the secure version of <code>http</code>. However, it also introduced an error with my project’s dependencies. This introduces a vulnerability where a malicious player could inject code into a dependency that I was pulling from. This would mean that they would have to control registry.npmjs.org in order to serve me the malicious link. So, I took a risk and made an exception after validating the dependencies I had. So, use this fix at your own risk.</p>
+<p>I reset it to <code>https</code> after I was done, to ensure future security, but I will be saving this incident in my memory if ever I bump into this type of freaky issue with npm :)</p>
+<p>Hope that helped!</p>
+<p>Signing off,<br>Pranav</p>
 
             
         </div>
@@ -205,7 +218,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/CS-Fundamentals/">CS Fundamentals</a> <a class="tag tag--primary tag--small t-link" href="/tags/Theory/">Theory</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/Bugs/">Bugs</a>
 
             </div>
         
@@ -214,7 +227,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/14/curious hanging npm/"  data-tooltip="NPM just hangs and hogs network connections">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -222,7 +235,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/27/context-switch/" data-tooltip="What on earth is a context switch? Is it good for me? (WIP)">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/25/user-kernel-transitions/" data-tooltip="Why are user-kernel transitions not cheap? (WIP)">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -237,17 +250,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=pkpk.tech/2016/05/14/curious hanging npm/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=pkpk.tech/2016/05/14/curious hanging npm/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=pkpk.tech/2016/05/14/curious hanging npm/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -295,7 +308,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/14/curious hanging npm/"  data-tooltip="NPM just hangs and hogs network connections">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -303,7 +316,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/27/context-switch/" data-tooltip="What on earth is a context switch? Is it good for me? (WIP)">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/25/user-kernel-transitions/" data-tooltip="Why are user-kernel transitions not cheap? (WIP)">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -318,17 +331,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=pkpk.tech/2016/05/14/curious hanging npm/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=pkpk.tech/2016/05/14/curious hanging npm/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=pkpk.tech/2016/05/14/curious hanging npm/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -354,17 +367,17 @@
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=pkpk.tech/2016/05/14/curious hanging npm/">
                 <i class="fa fa-google-plus"></i><span class="">Share on Google Plus</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=pkpk.tech/2016/05/14/curious hanging npm/">
                 <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=pkpk.tech/2016/02/25/user-kernel-transitions/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=pkpk.tech/2016/05/14/curious hanging npm/">
                 <i class="fa fa-twitter"></i><span>Share on Twitter</span>
             </a>
         </li>
@@ -418,9 +431,9 @@
     
         <script>
              var disqus_config = function () {
-                 this.page.url = 'pkpk.tech/2016/02/25/user-kernel-transitions/';
+                 this.page.url = 'pkpk.tech/2016/05/14/curious hanging npm/';
                  
-                    this.page.identifier = '2016/02/25/user-kernel-transitions/';
+                    this.page.identifier = '2016/05/14/curious hanging npm/';
                                   
              };
             (function() {
