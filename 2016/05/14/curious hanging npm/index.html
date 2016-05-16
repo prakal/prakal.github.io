@@ -11,19 +11,22 @@
     
     
     
-    <meta name="description" content="For context, I use a MacBook running Yosemite and use the standard Bash shell. 
-So, one fine day when I wanted to work on submitting a pull request on Github, I did the standard git clone, and npm ins">
+    <meta name="description" content="Why is npm hanging when I run  npm install ? 
+And why isn’t my internet working???
+Here’s the fix.">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="NPM just hangs and hogs network connections">
 <meta property="og:url" content="pkpk.tech/2016/05/14/curious hanging npm/index.html">
 <meta property="og:site_name" content="Pranav's coding adventures">
-<meta property="og:description" content="For context, I use a MacBook running Yosemite and use the standard Bash shell. 
-So, one fine day when I wanted to work on submitting a pull request on Github, I did the standard git clone, and npm ins">
-<meta property="og:updated_time" content="2016-05-14T20:48:39.000Z">
+<meta property="og:description" content="Why is npm hanging when I run  npm install ? 
+And why isn’t my internet working???
+Here’s the fix.">
+<meta property="og:updated_time" content="2016-05-16T08:02:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NPM just hangs and hogs network connections">
-<meta name="twitter:description" content="For context, I use a MacBook running Yosemite and use the standard Bash shell. 
-So, one fine day when I wanted to work on submitting a pull request on Github, I did the standard git clone, and npm ins">
+<meta name="twitter:description" content="Why is npm hanging when I run  npm install ? 
+And why isn’t my internet working???
+Here’s the fix.">
     
     
         
@@ -193,7 +196,9 @@ So, one fine day when I wanted to work on submitting a pull request on Github, I
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>For context, I use a MacBook running Yosemite and use the standard Bash shell. </p>
+            <p>Why is npm hanging when I run <code> npm install </code>? </p>
+<p>And why isn’t my internet working???</p>
+<p>Here’s the fix.<br><a id="more"></a><br>For context, I use a MacBook running Yosemite and use the standard Bash shell. </p>
 <p>So, one fine day when I wanted to work on submitting a pull request on Github, I did the standard git clone, and npm install, and went to browse a post on Hackernews. I managed to get through the article and then Safari froze. I tried Chrome, but to no avail. It looked like my internet wasn’t working. Ok. This has happened occassionally. I turned WiFi off and on.</p>
 <p>Still didn’t work.</p>
 <p>Then I realized that my npm process was still running! I stopped it, and my internet was back to normal. I reran npm, and voila, same issue. I ran du -hcs node_modules, and absent mindedly noted that the size of the npm modules was 55M.</p>

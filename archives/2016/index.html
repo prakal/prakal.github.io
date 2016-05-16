@@ -173,7 +173,7 @@
 <section class="postShorten-group main-content-wrap">
     
     
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
         <div class="postShorten-wrap">
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
@@ -194,33 +194,15 @@
             </div>
             
             
-                <div class="postShorten-content" itemprop="articleBody">
-                    <p>For context, I use a MacBook running Yosemite and use the standard Bash shell. </p>
-<p>So, one fine day when I wanted to work on submitting a pull request on Github, I did the standard git clone, and npm install, and went to browse a post on Hackernews. I managed to get through the article and then Safari froze. I tried Chrome, but to no avail. It looked like my internet wasn’t working. Ok. This has happened occassionally. I turned WiFi off and on.</p>
-<p>Still didn’t work.</p>
-<p>Then I realized that my npm process was still running! I stopped it, and my internet was back to normal. I reran npm, and voila, same issue. I ran du -hcs node_modules, and absent mindedly noted that the size of the npm modules was 55M.</p>
-<p>So I stopped the npm process, and rm -rf node_modules folder, did npm cache clean, and tried again. Nope. Still didn’t work.</p>
-<p>I had to use internet’s favourite search engine to get to the bottom of this. Some resources pointed to running npm install -ddd, which sounds funny, but I tried it. This time I got a large log statement about all the packages installed. I tried running grunt test to see all the tests pass, but I got an error about not being able to find a module. I gutted the node_modules folder again, and followed the above steps. Interestingly now, I got a different error log when I ran grunt test. This involved grunt not being able to find dependencies.</p>
-<p>It seemed like I had made some more headway into the process though. But, confusingly enough, the node_modules folder size was now only 21M.</p>
-<p>So, I did some more sleuthing in the output log of npm install -ddd, and realized that the process froze at multiple calls fetching the same resource:</p>
-<p><code> addRemoteTarball [ ‘<a href="https://registry.npmjs.org/request/-/request-2.72.0.tgz" target="_blank" rel="external">https://registry.npmjs.org/request/-/request-2.72.0.tgz</a>‘ </code></p>
-<p>This was quite curious indeed.</p>
-<p>Eventually, I stumbled upon the <a href="https://github.com/npm/npm/issues/1229" target="_blank" rel="external">issue in Github detailing this error</a>, and I am happy to report that it worked for me. It might not be the ideal, elegant solution, but it let me carry on with my work… Here’s the fix:</p>
-<p><code> npm config set registry <a href="http://registry.npmjs.org" target="_blank" rel="external">http://registry.npmjs.org</a> </code></p>
-<p>It turns out that the npm config variable was set to use a <code>https</code> server for registry rather than <code>http</code>. This makes sense, as <code>https</code> is the secure version of <code>http</code>. However, it also introduced an error with my project’s dependencies. This introduces a vulnerability where a malicious player could inject code into a dependency that I was pulling from. This would mean that they would have to control registry.npmjs.org in order to serve me the malicious link. So, I took a risk and made an exception after validating the dependencies I had. So, use this fix at your own risk.</p>
-<p>I reset it to <code>https</code> after I was done, to ensure future security, but I will be saving this incident in my memory if ever I bump into this type of freaky issue with npm :)</p>
-<p>Hope that helped!</p>
-<p>Signing off,<br>Pranav</p>
-
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>Why is npm hanging when I run <code> npm install </code>? </p>
+<p>And why isn’t my internet working???</p>
+<p>Here’s the fix.<br>
                     
+                        <a href="/2016/05/14/curious hanging npm/" class="postShorten-excerpt_link link">
+                            Continue reading
+                        </a>
                         
-                    
-                    
-                        <p>
-                            <a href="/2016/05/14/curious hanging npm/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
                     
                 </div>
             

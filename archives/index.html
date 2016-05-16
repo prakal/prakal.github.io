@@ -173,7 +173,7 @@
 <section class="postShorten-group main-content-wrap">
     
     
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
         <div class="postShorten-wrap">
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
@@ -194,33 +194,15 @@
             </div>
             
             
-                <div class="postShorten-content" itemprop="articleBody">
-                    <p>For context, I use a MacBook running Yosemite and use the standard Bash shell. </p>
-<p>So, one fine day when I wanted to work on submitting a pull request on Github, I did the standard git clone, and npm install, and went to browse a post on Hackernews. I managed to get through the article and then Safari froze. I tried Chrome, but to no avail. It looked like my internet wasn’t working. Ok. This has happened occassionally. I turned WiFi off and on.</p>
-<p>Still didn’t work.</p>
-<p>Then I realized that my npm process was still running! I stopped it, and my internet was back to normal. I reran npm, and voila, same issue. I ran du -hcs node_modules, and absent mindedly noted that the size of the npm modules was 55M.</p>
-<p>So I stopped the npm process, and rm -rf node_modules folder, did npm cache clean, and tried again. Nope. Still didn’t work.</p>
-<p>I had to use internet’s favourite search engine to get to the bottom of this. Some resources pointed to running npm install -ddd, which sounds funny, but I tried it. This time I got a large log statement about all the packages installed. I tried running grunt test to see all the tests pass, but I got an error about not being able to find a module. I gutted the node_modules folder again, and followed the above steps. Interestingly now, I got a different error log when I ran grunt test. This involved grunt not being able to find dependencies.</p>
-<p>It seemed like I had made some more headway into the process though. But, confusingly enough, the node_modules folder size was now only 21M.</p>
-<p>So, I did some more sleuthing in the output log of npm install -ddd, and realized that the process froze at multiple calls fetching the same resource:</p>
-<p><code> addRemoteTarball [ ‘<a href="https://registry.npmjs.org/request/-/request-2.72.0.tgz" target="_blank" rel="external">https://registry.npmjs.org/request/-/request-2.72.0.tgz</a>‘ </code></p>
-<p>This was quite curious indeed.</p>
-<p>Eventually, I stumbled upon the <a href="https://github.com/npm/npm/issues/1229" target="_blank" rel="external">issue in Github detailing this error</a>, and I am happy to report that it worked for me. It might not be the ideal, elegant solution, but it let me carry on with my work… Here’s the fix:</p>
-<p><code> npm config set registry <a href="http://registry.npmjs.org" target="_blank" rel="external">http://registry.npmjs.org</a> </code></p>
-<p>It turns out that the npm config variable was set to use a <code>https</code> server for registry rather than <code>http</code>. This makes sense, as <code>https</code> is the secure version of <code>http</code>. However, it also introduced an error with my project’s dependencies. This introduces a vulnerability where a malicious player could inject code into a dependency that I was pulling from. This would mean that they would have to control registry.npmjs.org in order to serve me the malicious link. So, I took a risk and made an exception after validating the dependencies I had. So, use this fix at your own risk.</p>
-<p>I reset it to <code>https</code> after I was done, to ensure future security, but I will be saving this incident in my memory if ever I bump into this type of freaky issue with npm :)</p>
-<p>Hope that helped!</p>
-<p>Signing off,<br>Pranav</p>
-
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>Why is npm hanging when I run <code> npm install </code>? </p>
+<p>And why isn’t my internet working???</p>
+<p>Here’s the fix.<br>
                     
+                        <a href="/2016/05/14/curious hanging npm/" class="postShorten-excerpt_link link">
+                            Continue reading
+                        </a>
                         
-                    
-                    
-                        <p>
-                            <a href="/2016/05/14/curious hanging npm/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
                     
                 </div>
             
@@ -370,12 +352,12 @@
     </article>
     
     
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
         <div class="postShorten-wrap">
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
                     
-                        <a class="link-unstyled" href="/2015/11/06/2015-04-24-stack-sort/">
+                        <a class="link-unstyled" href="/2015/11/06/stack-sort/">
                             Stack Sort
                         </a>
                     
@@ -391,263 +373,16 @@
             </div>
             
             
-                <div class="postShorten-content" itemprop="articleBody">
+                <div class="postShorten-excerpt" itemprop="articleBody">
                     <h2 id="Prompt"><a href="#Prompt" class="headerlink" title="Prompt:"></a>Prompt:</h2><blockquote>
-<p>Sort a Stack class in ascending order without using any other data structure other than one more Stack. Solve it in strictly linear space complexity. You have access to the push, pop and isEmpty methods on the Stack. Go!</p>
+<p>Sort a Stack class in ascending order without using any other data structure other than one more Stack. Solve it in strictly linear space complexity. You have access to the push, pop and isEmpty methods on the Stack. </p>
 </blockquote>
-<p>First off, what is a Stack? To refresh your memory, a Stack resembles dirty dishes in a sink. When you need to wash them, you start with the dishes on top rather than the dishes on the bottom. So, the first dirty dish to enter the sink gets washed last.</p>
-<p>There are three important methods on Stack:</p>
-<ul>
-<li><code>Push(value)</code>: Adds the value to the top of the Stack  </li>
-<li><code>Pop():</code> Removes the value at the top of the Stack, and returns the value</li>
-<li><code>isEmpty():</code> Returns whether the Stack has any items </li>
-</ul>
-<h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h2><ul>
-<li><code>Inputs</code>: An unsorted Stack with some integers</li>
-<li><code>Outputs</code>: A sorted Stack (largest integers on top, smallest at bottom)</li>
-<li><code>Constraints</code>: Only use another Stack to help sort, and variables when required</li>
-</ul>
-<blockquote>
-<p>My method involves popping a value from one Stack, comparing it to a variable, and selectively pushing it to another Stack. When the first Stack is empty, we can run the same Algorithmthm on the second Stack and selectively push values to the first Stack. When there are no more items to push, we can successfully say that we have sorted the Stack.</p>
-</blockquote>
-<p>If you did not understand the solution from the paragraph above, do not fear, the rest of this article is for you!</p>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>Let us use an example problem to illustrate this technique.</p>
-<table>
-<thead>
-<tr>
-<th>Stack A</th>
-<th style="text-align:right">Stack B (empty)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>9</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>4</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>12</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>6</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>7</td>
-</tr>
-</tbody>
-</table>
-<p>Also, we have three variables, <code>i</code>, that starts at <code>0</code> , <code>comparison</code>, that starts at <code>undefined</code>, and <code>done</code> that starts as <code>false</code>.</p>
-<p>Start: Full stack - Stack A, while empty stack is Stack B.</p>
-<ol>
-<li>Set done to be true at the beginning of every loop. </li>
-<li><code>pop()</code> on Stack A. This returns 9. Stack now has only 4 elements, since 9 is removed from the Stack.</li>
-<li>Assign 9 to comparison.</li>
-<li>If <code>i</code> is divisible by 2:<ul>
-<li>Compare 4 to <code>comparison</code> (9), and push the smaller value in the other Stack (Stack B).</li>
-<li>We place the larger value in the comparison variable.</li>
-</ul>
-</li>
-<li>If <code>i</code> is not divisible by 2:<ul>
-<li>Compare 4 to <code>comparison</code> (9), and push the larger value in the other Stack (Stack B).</li>
-<li>We place the smaller value in the <code>comparison</code> variable.</li>
-</ul>
-</li>
-<li>Repeat process over the entire Stack A. If the <code>comparison</code>variable changes at any time, set done to be false</li>
-<li>When Stack A is empty, <code>isEmpty(Stack A)</code> returns true.</li>
-<li><code>i</code> is incremented. In this case, <code>i</code> is 1.</li>
-<li>If done is true, we push comparison value to the recently filled Stack. For <code>i % 2 = 0</code>, it is Stack B, while for <code>i % 2 = 1</code>, it is Stack A. </li>
-<li>If <code>i</code> is not divisible by 2:<ul>
-<li>Repeat 1 through 7. </li>
-<li>Push value in <code>comparison</code> variable in Stack A.</li>
-<li>Move items from Stack B to Stack A.</li>
-</ul>
-</li>
-<li>If <code>i</code> is divisible by 2:<ul>
-<li>Repeat 1 through 7.</li>
-<li>Push value in <code>comparison</code> variable in Stack B. </li>
-<li>Move items from Stack A to Stack B.</li>
-</ul>
-</li>
-</ol>
-<p>After the first pass, the stacks should look as follows:</p>
-<table>
-<thead>
-<tr>
-<th>Stack A (empty)</th>
-<th style="text-align:right">Stack B</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td style="text-align:right">-</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">7</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">6</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">9</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">4</td>
-</tr>
-</tbody>
-</table>
-<p><code>i = 1,
-comparison = 12</code></p>
-<p>After the second pass, the stacks should look as follows:</p>
-<table>
-<thead>
-<tr>
-<th>Stack A</th>
-<th style="text-align:right">Stack B (empty)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>6</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>9</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>7</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>12</td>
-</tr>
-</tbody>
-</table>
-<p><code>i = 2,
-comparison = 4</code></p>
-<p>After the third pass, the stacks should look as follows:</p>
-<table>
-<thead>
-<tr>
-<th>Stack A (empty)</th>
-<th style="text-align:right">Stack B</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-<td style="text-align:right">-</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">9</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">7</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">6</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right">4</td>
-</tr>
-</tbody>
-</table>
-<p><code>i = 3,
-comparison = 12</code></p>
-<p>After the fourth pass, the stacks should look as follows:</p>
-<table>
-<thead>
-<tr>
-<th>Stack A</th>
-<th style="text-align:right">Stack B (empty)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>6</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>7</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>9</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>12</td>
-</tr>
-</tbody>
-</table>
-<p><code>i = 4,
-comparison = 4</code></p>
-<p>Since done stays as true through the entire pass, we push the value in comparison to Stack A.</p>
-<p>Eventually, it looks like this:</p>
-<table>
-<thead>
-<tr>
-<th>Stack A</th>
-<th style="text-align:right">Stack B (empty)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>4</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>6</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>7</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>9</td>
-<td style="text-align:right"></td>
-</tr>
-<tr>
-<td>12</td>
-</tr>
-</tbody>
-</table>
-<p>And voila, sort for a Stack has been accomplished!</p>
-<p>Have questions or suggestions? Feel free to <a href="https://github.com/prakal/prakal.github.io/issues/new" target="_blank" rel="external">open an issue on GitHub</a>.</p>
-<p>Cheers!</p>
-
+<p>Go!<br>
                     
+                        <a href="/2015/11/06/stack-sort/" class="postShorten-excerpt_link link">
+                            Continue reading
+                        </a>
                         
-                    
-                    
-                        <p>
-                            <a href="/2015/11/06/2015-04-24-stack-sort/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
                     
                 </div>
             
