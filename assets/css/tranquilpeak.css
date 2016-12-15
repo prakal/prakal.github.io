@@ -55,7 +55,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background: white;
+  background: rgb(211, 241, 253);
   font-family: "Open Sans", sans-serif;
   font-size: 1.6rem;
   line-height: 1.9em;
@@ -232,7 +232,7 @@ blockquote {
     position: relative;
     top: -1000px;
     display: block;
-    background: white;
+    background: rgb(211, 241, 253);
     max-width: 400px;
     margin: 15px auto;
     border-radius: 3px;
@@ -407,11 +407,11 @@ blockquote {
   display: block;
   width: 100%;
   height: 55px;
-  background: #fff;
+  background: rgb(3, 101, 147);
   position: fixed;
   top: 0;
   border: 1px solid #eef2f8;
-  color: #88909a;
+  color: #f4f4f5;
   z-index: 20;
   transition: transform .25s ease-in-out;
   -webkit-transition: -webkit-transform .25s ease-in-out;
@@ -446,10 +446,10 @@ blockquote {
     line-height: 55px;
     margin: 0; }
     #header .header-title .header-title-link {
-      color: #88909a;
+      color: #f4f4f5;
       font-weight: normal; }
       #header .header-title .header-title-link:hover, #header .header-title .header-title-link:active {
-        color: #6e7681;
+        color: #fff;
         text-decoration: none; }
   #header.header-up {
     -webkit-transform: translate3d(0, -55px, 0);
@@ -471,7 +471,7 @@ blockquote {
 #main {
   display: block;
   min-height: 100%;
-  background: #fff;
+  background: rgb(211, 241, 253);
   transition: transform .25s ease-in-out;
   -webkit-transition: -webkit-transform .25s ease-in-out; }
   #main.hasCover.hasCoverCaption, #main.hasCover.hasCoverMetaOut {

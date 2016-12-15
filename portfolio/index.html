@@ -6,19 +6,20 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Pranav&#39;s coding adventures">
-    <title>Archives: 2016/2 - Pranav&#39;s coding adventures</title>
+    <title>Portfolio - Pranav&#39;s coding adventures</title>
     <meta name="author" content="Pranav">
     
     
     
     <meta name="description">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Pranav's coding adventures">
-<meta property="og:url" content="pkpk.tech/archives/2016/02/index.html">
+<meta property="og:title" content="Portfolio">
+<meta property="og:url" content="pkpk.tech/portfolio/index.html">
 <meta property="og:site_name" content="Pranav's coding adventures">
 <meta property="og:description">
+<meta property="og:updated_time" content="2016-12-15T07:33:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Pranav's coding adventures">
+<meta name="twitter:title" content="Portfolio">
 <meta name="twitter:description">
     
     
@@ -177,69 +178,16 @@
                  class="
                         hasCoverMetaIn
                         ">
-                
-    
+                <div class="postShorten-group main-content-wrap">
+	<a style="box-shadow: red 2px 2px 10px;" href="https://prakal.github.io/lunchbox">
+		<img src="/assets/images/zen-e-lunchbox.png" style="width: 300px; height: 300px;">
 
-<section class="postShorten-group main-content-wrap">
-    
-    
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
-        <div class="postShorten-wrap">
-            <div class="postShorten-header">
-                <h1 class="postShorten-title" itemprop="headline">
-                    
-                        <a class="link-unstyled" href="/2016/02/25/user-kernel-transitions/">
-                            Why are user-kernel transitions not cheap? (WIP)
-                        </a>
-                    
-                </h1>
-                <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Thu Feb 25 2016 06:40:12 GMT-0800">
-	
-		    Feb 25, 2016
-    	
-    </time>
-    
+	</a>
+	<h2>
+		<a class="link-unstyled" href="https://prakal.github.io/lunchbox">Zen-E-Lunchbox</a>
+	</h2>
+
 </div>
-            </div>
-            
-            
-                <div class="postShorten-content" itemprop="articleBody">
-                    <p>On Unix based systems, when an application tries to access some privileged resources, such as attempting to request extra CPU cycles, or access to a certain memory location, the request is deferred to the kernel. </p>
-<p>This is done by setting a ‘trap bit’, a bit that denotes that their action might need additional permission. The kernel then receives control, and then decides whether to allow or deny that particular action based on the policies set up. After that, control is transferred back to the application. </p>
-<p>On a single core 2GHz Linux Machine, it takes about 50-100 ns (nanoseconds) to perform the above transition. While it looks negligible, it adds up, since this action happens innumerable times during the day and is necessary for a properly running OS.</p>
-<p>Also, since these instructions have to be loaded on the hardware cache, existing content on the cache will be overwritten, and application content will be transferred to memory instead. Accessing the hardware cache takes an order of 10^1 cycles, while accessing memory might take 10^2 cycles. So, frequent transitions will adversely affect the overall efficiency of the computer. </p>
-<p>I learnt this on Udacity’s wonderful course on Operating Systems at<br><div class="video-container"><iframe src="//www.youtube.com/embed/jEIveiotF74" frameborder="0" allowfullscreen></iframe></div></p>
-<p>Please do check it out if you’re interested!</p>
-
-                    
-                        
-                    
-                    
-                        <p>
-                            <a href="/2016/02/25/user-kernel-transitions/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
-                    
-                </div>
-            
-        </div>
-        
-    </article>
-    
-    <div class="pagination-bar">
-    <ul class="pagination">
-        
-        
-        <li class="pagination-number">page 1 of 1</li>
-    </ul>
-</div>
-
-</section>
-
-
-
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
         Copyrights &copy; 2016 Pranav. All Rights Reserved.
